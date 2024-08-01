@@ -402,6 +402,37 @@ public class AdminController {
         TypeLivraison savedTypeLivraison = typeLivraisonService.ajouterTypeLivraison(typeLivraison);
         return ResponseEntity.status(HttpStatus.CREATED).body("Type de livraison ajouté avec succès ");
     }
+
+    @GetMapping("/listeTypeLivraison")
+
+    public ResponseEntity<List<TypeLivraison>> getAllTypeLivraisons() {
+        List<TypeLivraison> typelivraisons = typeLivraisonService.getAllTypeLivraisons();
+        return ResponseEntity.ok(typelivraisons);
+    }
+
+
+    @PutMapping("/modifierTypeLivraison/{id}")
+    public ResponseEntity<TypeLivraison> mettreAJourTypeLivraison(
+            @PathVariable Long id,
+            @RequestBody TypeLivraison typeLivraison) {
+        try {
+            TypeLivraison updatedTypeLivraison = typeLivraisonService.mettreAJourTypeLivraison(id, typeLivraison);
+            return ResponseEntity.ok(updatedTypeLivraison);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+    @DeleteMapping("/supprimerTypeLivraison/{id}")
+    public ResponseEntity<String> supprimerTypeLivraison(@PathVariable Long id) {
+        try {
+            typeLivraisonService.supprimerTypeLivraison(id);
+            return ResponseEntity.ok("Type de livraison supprimé.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Type de livraison non trouvé.");
+        }
+    }
+
     @PostMapping("/ajouterLivraison/{commandeId}")
     public ResponseEntity<String> ajouterLivraison(
             @PathVariable Long commandeId,
@@ -439,6 +470,12 @@ public class AdminController {
         commandeService.saveCommande(commande);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Livraison ajoutée et statut mis à jour à 'en_cours'.");
+    }
+
+    @GetMapping("/listeLivraison")
+    public ResponseEntity<List<Livraison>> getAllLivraisons() {
+        List<Livraison> livraisons = livraisonService.getAllLivraisons();
+        return ResponseEntity.ok(livraisons);
     }
 
     @GetMapping("/voirCommandes")

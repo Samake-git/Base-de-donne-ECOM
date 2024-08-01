@@ -27,5 +27,6 @@ public class Produit {
     @ManyToOne
     private SousCategory sousCategory;
     @ManyToMany(mappedBy = "produits")
-    private List<Panier> paniers = new ArrayList<>();
+    private List<Commande> commandes = new ArrayList<>();
+
 }

@@ -26,12 +26,9 @@ public class Commande {
                     name = "produit_id"
             )
     )
-
     private List<Produit> produits = new ArrayList<>();
 
     @OneToOne(mappedBy = "commande")
     private Livraison livraison;
 
-    public void setProduit(List<Produit> produitsList) {
-    }
 }

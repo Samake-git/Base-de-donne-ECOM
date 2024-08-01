@@ -46,8 +46,7 @@ public class CommandeService {
             produitsList.add(produit);
         }
 
-        commande.setProduit(produitsList);
-
+        commande.setProduits(produitsList);
 
         StatuCommande statutEnAttente = this.statuCommandeService.recupererStatusCommande("en_attente");
         commande.setStatu(statutEnAttente);
@@ -55,6 +54,8 @@ public class CommandeService {
         facture.setTotal(total);
         facture.setCommande(commande);
         this.factureRepository.save(facture);
+
+        // Sauvegarder la commande avec les produits
         return this.commandeRepository.save(commande);
     }
 
@@ -108,6 +109,5 @@ public class CommandeService {
     public List<Commande> getCommandes() {
         return this.commandeRepository.findAll();
     }
-
 
 }

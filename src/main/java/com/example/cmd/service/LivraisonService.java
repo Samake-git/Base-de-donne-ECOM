@@ -25,15 +25,21 @@ public class LivraisonService {
         return livraisonRepository.save(livraison);
     }
 
+
     public Optional<TypeLivraison> findById(Long id) {
         return typeLivraisonRepository.findById(id);
     }
+
     public Livraison getLivraisonById(Long id) {
         return livraisonRepository.findById(id).orElse(null);
     }
 
     public Optional<Livraison> findByCommande(Commande commande) {
         return livraisonRepository.findByCommande(commande);
+    }
+
+    public List<Livraison> getAllLivraisons() {
+        return livraisonRepository.findAll();
     }
 }
 
