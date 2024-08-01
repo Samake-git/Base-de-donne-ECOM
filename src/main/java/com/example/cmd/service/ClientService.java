@@ -92,5 +92,9 @@ public class ClientService {
         });
     }
 
+    public List<Client> obtenirTousLesClients() {
+        return clientRepository.findAll();
+    }
+
 
 }

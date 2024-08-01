@@ -46,7 +46,6 @@ public class AdminController {
     @Autowired
     private StatuCommandeService statuCommandeService;
 
-    //private Utilisateur utilisateur;
     @Autowired
     private CategoryRepository categoryRepository;
     @Autowired
@@ -57,6 +56,9 @@ public class AdminController {
     private CommandeService commandeService;
     @Autowired
     private PayementService payementService;
+
+    @Autowired
+    private ClientService clientService;
 
     // Endpoints pour les rôles
 
@@ -135,6 +137,14 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+    // Affiche tous les clients
+
+    @GetMapping("/allClients")
+    public List<Client> getAllClients() {
+        return clientService.obtenirTousLesClients();
+    }
+
 
     @PostMapping("/Creerpersonnel")
     public ResponseEntity<Personnel> Creerpersonnel(@RequestBody Personnel personnel) {

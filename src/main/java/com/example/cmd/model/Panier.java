@@ -15,6 +15,7 @@ public class Panier {
 
     private float total;
     @ManyToOne
+
     private Client client;
 
     @ManyToMany
@@ -36,7 +37,9 @@ public class Panier {
         }
         produit.setQuantite(quantite);
         produits.add(produit);
-        getTotal();
+
+        this.total = getTotal();
+
     }
 
 
@@ -44,15 +47,19 @@ public class Panier {
         for (Produit produit : produits) {
             if (produit.getId().equals(produitId)) {
                 produit.setQuantite(nouvelleQuantite);
-                getTotal();
+                this.total = getTotal();
                 return;
+
             }
         }
         throw new RuntimeException("Produit non trouvé dans le panier");
+
     }
 
     public void supprimerProduit(Long produitId) {
+
         produits.removeIf(produit -> produit.getId().equals(produitId));
+        this.total = getTotal();
     }
 
 

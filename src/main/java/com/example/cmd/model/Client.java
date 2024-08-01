@@ -32,12 +32,7 @@ public class Client extends Utilisateur {
         this.status = StatusCompte.ACTIVE;
     }
 
-    public BigDecimal getSold() {
-        return getSold();
-    }
 
-    public void setSolde(BigDecimal subtract) {
-    }
 }
 
 

@@ -38,6 +38,7 @@ public class PanierService {
 
         Produit produit = produitRepository.findById(produitId).orElseThrow(() -> new IllegalArgumentException("Produit non trouvé"));
         panier.getProduits().add(produit);
+        panier.setTotal(panier.getTotal());
         panierRepository.save(panier);
         return panier;
     }
