@@ -37,5 +37,9 @@ public abstract class Utilisateur {
     public void setAdmin(Admin admin) {
     }
 
+<<<<<<< HEAD
 
 }
+=======
+}
+>>>>>>> 549d4607c5e5ab06ba436568517fee7169fab12b
