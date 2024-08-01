@@ -37,7 +37,5 @@ public abstract class Utilisateur {
     public void setAdmin(Admin admin) {
     }
 
-    public String getEmail() {
-        return "";
-    }
+
 }

@@ -21,6 +21,7 @@ public class CommandeService {
     private final ProduitRepository produitRepository;
     private final StatuCommandeService statuCommandeService;
     private StatuCommandeRepository statuCommandeRepository;
+
     @Autowired
     public CommandeService(StatuCommandeRepository statuCommandeRepository, CommandeRepository commandeRepository, FactureRepository factureRepository, ProduitRepository produitRepository, StatuCommandeService statuCommandeService) {
         this.commandeRepository = commandeRepository;
@@ -29,10 +30,12 @@ public class CommandeService {
         this.produitRepository = produitRepository;
         this.statuCommandeService = statuCommandeService;
     }
+
     @Transactional
     public Commande saveCommande(Commande commande) {
         return this.commandeRepository.save(commande);
     }
+
     @Transactional
     public Commande passerCommande(List<Produit> produits) {
         Commande commande = new Commande();
@@ -46,15 +49,15 @@ public class CommandeService {
             produitsList.add(produit);
         }
 
-        commande.setProduit(produitsList);
-
-
+        commande.setProduits(produitsList);
         StatuCommande statutEnAttente = this.statuCommandeService.recupererStatusCommande("en_attente");
         commande.setStatu(statutEnAttente);
+
         Facture facture = new Facture();
         facture.setTotal(total);
         facture.setCommande(commande);
         this.factureRepository.save(facture);
+
         return this.commandeRepository.save(commande);
     }
 
@@ -63,10 +66,10 @@ public class CommandeService {
     }
 
     public boolean verifierStatutExiste(String statutNom) {
-        // Utilise Optional pour vérifier la présence du statut
         return statuCommandeRepository.findByLibelle(statutNom).isPresent();
     }
 
+    @Transactional
     public String changerStatut(Long commandeId, String statutNom) {
         Optional<StatuCommande> statutOptional = statuCommandeRepository.findByLibelle(statutNom);
         if (!statutOptional.isPresent()) {
@@ -82,27 +85,14 @@ public class CommandeService {
         Commande commande = commandeOptional.get();
         commande.setStatu(statut);
 
-        // Sauvegarder les modifications
         commandeRepository.save(commande);
 
         return "Statut de la commande mis à jour avec succès";
     }
+
     public Commande getCommande(long id) {
         return this.commandeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Commande non trouvée"));
-    }
-
-    @Transactional
-    public String changerStatut(long commandeId, String statutNom) {
-        Commande commande = this.commandeRepository.findById(commandeId)
-                .orElseThrow(() -> new RuntimeException("Commande non trouvée"));
-
-        StatuCommande statutCommande = this.statuCommandeService.recupererStatusCommande(statutNom);
-
-        commande.setStatu(statutCommande);
-        this.commandeRepository.save(commande);
-
-        return "Statut modifié avec succès";
     }
 
     public List<Commande> getCommandes() {

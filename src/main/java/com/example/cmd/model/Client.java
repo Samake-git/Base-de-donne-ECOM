@@ -19,19 +19,6 @@ public class Client extends Utilisateur {
     private StatusCompte status;
 
 
-    public Client() {
-        super();
-    }
-
-    public Client(String nom, String prenom, String username, String email, String motDePasse, String adresse, String telephone, RoleType roleType) {
-        super(username, email, motDePasse, roleType);
-        this.nom = nom;
-        this.prenom = prenom;
-        this.adresse = adresse;
-        this.telephone = telephone;
-        this.status = StatusCompte.ACTIVE;
-    }
-
 
 }
 

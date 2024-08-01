@@ -365,11 +365,23 @@ public class AdminController {
     }
 
     // Endpoint pour les commandes
-    @PostMapping("/passerCommande")
-    public ResponseEntity<Commande> passerCommandes(@RequestBody List<Produit> produits) {
-        Commande c = this.commandeService.passerCommande(produits);
-        return new ResponseEntity<>(c, HttpStatus.CREATED);
+    @PostMapping("/passer-commande")
+    public ResponseEntity<Commande> passerCommande(@RequestBody List<Produit> produits) {
+        Commande commande = this.commandeService.passerCommande(produits);
+        return new ResponseEntity<>(commande, HttpStatus.CREATED);
     }
+
+    @GetMapping("/AffichecommandeByID/{id}")
+    public ResponseEntity<Commande> getCommandeById(@PathVariable("id") long id) {
+        Commande commande = this.commandeService.getCommande(id);
+        return ResponseEntity.ok(commande);
+    }
+
+    @GetMapping
+    public List<Commande> getAllCommandes() {
+        return commandeService.getCommandes();
+    }
+
     @PutMapping("/changerCommandeStatut/{commandeId}")
     public ResponseEntity<String> changerStatut(@PathVariable Long commandeId, @RequestBody Map<String, String> requestBody) {
         String statutNom = requestBody.get("statutNom");
