@@ -410,7 +410,6 @@ public class AdminController {
         return ResponseEntity.ok(typelivraisons);
     }
 
-
     @PutMapping("/modifierTypeLivraison/{id}")
     public ResponseEntity<TypeLivraison> mettreAJourTypeLivraison(
             @PathVariable Long id,

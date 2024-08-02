@@ -26,7 +26,5 @@ public class Produit {
     private Utilisateur utilisateur;
     @ManyToOne
     private SousCategory sousCategory;
-    @ManyToMany(mappedBy = "produits")
-    private List<Commande> commandes = new ArrayList<>();
 
 }

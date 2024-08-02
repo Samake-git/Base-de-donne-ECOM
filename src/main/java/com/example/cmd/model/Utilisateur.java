@@ -33,11 +33,6 @@ public abstract class Utilisateur {
         this.roleType = roleType;
     }
 
-
     public void setAdmin(Admin admin) {
-    }
-
-    public String getEmail() {
-        return "";
     }
 }

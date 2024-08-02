@@ -16,7 +16,7 @@ public class Commande {
     private Date date = new Date();
     @ManyToOne
     private StatuCommande statu;
-    @ManyToMany
+   @ManyToMany
     @JoinTable(
             name = "commande_produit",
             joinColumns = @JoinColumn(
@@ -26,9 +26,10 @@ public class Commande {
                     name = "produit_id"
             )
     )
+
     private List<Produit> produits = new ArrayList<>();
 
     @OneToOne(mappedBy = "commande")
     private Livraison livraison;
 
-}
+   
